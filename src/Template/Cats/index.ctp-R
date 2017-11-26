@@ -1,0 +1,97 @@
+<?php
+/**
+  * @var \App\View\AppView $this
+  * @var \Cake\Datasource\EntityInterface[]|\Cake\Collection\CollectionInterface $cats
+  */
+?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('New Cat'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Breeds'), ['controller' => 'Breeds', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Breed'), ['controller' => 'Breeds', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Blog Posts'), ['controller' => 'BlogPosts', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Blog Post'), ['controller' => 'BlogPosts', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Blogs'), ['controller' => 'Blogs', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Blog'), ['controller' => 'Blogs', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Exhibitions'), ['controller' => 'Exhibitions', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Exhibition'), ['controller' => 'Exhibitions', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Photos'), ['controller' => 'Photos', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Photo'), ['controller' => 'Photos', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+    </ul>
+</nav>
+<div class="cats index large-9 medium-8 columns content">
+    <h3><?= __('Cats') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('breeder') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('alias') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('number') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('color') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('gender') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('castrated') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('bloodtype') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('birthdate') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('deathdate') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('motherbreeder') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('mothername') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('mothernumber') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fatherbreeder') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fathername') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fathernumber') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ems') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('breed_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($cats as $cat): ?>
+            <tr>
+                <td><?= $this->Number->format($cat->id) ?></td>
+                <td><?= h($cat->name) ?></td>
+                <td><?= h($cat->breeder) ?></td>
+                <td><?= h($cat->alias) ?></td>
+                <td><?= h($cat->number) ?></td>
+                <td><?= h($cat->color) ?></td>
+                <td><?= h($cat->gender) ?></td>
+                <td><?= $this->Number->format($cat->castrated) ?></td>
+                <td><?= h($cat->bloodtype) ?></td>
+                <td><?= h($cat->birthdate) ?></td>
+                <td><?= h($cat->deathdate) ?></td>
+                <td><?= h($cat->motherbreeder) ?></td>
+                <td><?= h($cat->mothername) ?></td>
+                <td><?= h($cat->mothernumber) ?></td>
+                <td><?= h($cat->fatherbreeder) ?></td>
+                <td><?= h($cat->fathername) ?></td>
+                <td><?= h($cat->fathernumber) ?></td>
+                <td><?= h($cat->date) ?></td>
+                <td><?= h($cat->ems) ?></td>
+                <td><?= $cat->has('breed') ? $this->Html->link($cat->breed->name, ['controller' => 'Breeds', 'action' => 'view', $cat->breed->id]) : '' ?></td>
+                <td><?= $this->Number->format($cat->user_id) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $cat->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cat->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $cat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $cat->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+    </div>
+</div>

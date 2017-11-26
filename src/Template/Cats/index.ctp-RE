@@ -1,0 +1,110 @@
+<?php
+
+use Cake\I18n\Date;
+use Thumber\Utility\ThumbCreator;
+
+/**
+  * @var \App\View\AppView $this
+  * @var \Cake\Datasource\EntityInterface[]|\Cake\Collection\CollectionInterface $cats
+  */
+
+//Columns must be a factor of 12 (1,2,3,4,6,12)
+$numOfCols = 4;
+$rowCount = 0;
+$bootstrapColWidth = 12 / $numOfCols;
+debug($breeds);sdfsd
+?>
+<div class="sidebar">
+  <?php if (isset($breeds)): ?>
+    <h3><?php echo __('Cat breeds',true);?></h3>
+    <?php if (isset($this->params['pass'][0])) $param = '/'.$this->params['pass'][0].'/'; else $param='';?>
+    <table width=100%>
+    <?php $i = $x = 0;
+    foreach ($breeds as $breed):
+      $class = null;
+      if ($i++ % 2 == 0) {
+        $class = ' class="altrow"';
+      }?>
+      <?php if ($x==0) echo "</tr><tr".$class.">";?>
+      <td>
+        <?php // echo $this->Html->link('['.$breed['Breed']['id'].'] '.$breed['Breed']['name'], array('controller'=>$this->name,'action'=>$this->action,$param.'filter:breed_id/value:'.$breed['Breed']['id']))?>
+        <?php echo $this->Html->link('['.$breed['Breed']['id'].'] '.$breed['Breed']['name']. ' ('.$breed[0]['count'].')', '/'.$this->name.'/'.$this->action.'/'.$param.'/filter:breed_id/value:'.$breed['Breed']['id'])?>
+      </td>
+      <?php if ($x>=0) $x=0; else $x++;?>
+    <?php endforeach;?>
+    </table>
+  <?endif?>
+
+  <?php if (isset($breeders)): ?>
+  <h3><?php __('Breeders');?></h1>
+  <table width=100%>
+  <?php $i = $x = 0;
+  foreach ($breeders as $breeder):
+    if (in_array($breeder['Cat']['breeder'],array('.','?','-',null))) continue(1);
+    $class = null;
+    if ($i++ % 2 == 0) {
+      $class = ' class="altrow"';
+    }?>
+    <?php if ($x==0) echo "</tr><tr".$class.">";?>
+    <td>
+      <?php echo $this->Html->link($breeder['Cat']['breeder'], '/cats/index/breeders/filter:breeder/value:'.urlencode($breeder['Cat']['breeder'])); ?>
+    </td>
+    <?php if ($x>1) $x=0; else $x++;?>
+  <?php endforeach;?>
+  </table>
+  <?endif?>
+</div> 
+
+<div class="row">
+  <?php foreach ($cats as $cat): ?>
+
+    <div class="col-lg-<?php echo $bootstrapColWidth/2; ?> col-sm-<?php echo $bootstrapColWidth; ?> mb-<?php echo $bootstrapColWidth; ?>">
+     <!--  <img class="img-fluid" src="http://placehold.it/500x300" alt=""> -->
+      <?php if (isset($cat['Photo'][0]['dir'])) $thumb_prefix = 'photos/thumbs/'.$cat['Photo'][0]['dir'].'/thumb_'; else $thumb_prefix='photos/thumb_'; ?>
+      <?php echo (isset($cat['Photo'][0]['id'])) ? $this->Html->link($this->Html->image($thumb_prefix.$cat['Photo'][0]['filename']), array('plugin'=>false,'controller'=>'photos','action'=>'view', $cat['Photo'][0]['id']), array('escape'=>false),false):'';?>
+      <?php echo "<br/>".$this->Html->link(substr($cat->name,0,17), array('action'=>'view', $cat->id)); ?>
+    </div>
+    <?php
+      $rowCount++;
+      if($rowCount % $numOfCols == 0) echo '</div><div class="row">';
+    ?>
+
+  <?php endforeach; ?>
+</div>
+      <!-- Pagination -->
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">3</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+
+
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+    </div>
+</div>

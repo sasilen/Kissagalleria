@@ -1,0 +1,365 @@
+<?php
+/**
+  * @var \App\View\AppView $this
+  * @var \Cake\Datasource\EntityInterface $cat
+  */
+?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('Edit Cat'), ['action' => 'edit', $cat->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Cat'), ['action' => 'delete', $cat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $cat->id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Cats'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Cat'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Breeds'), ['controller' => 'Breeds', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Breed'), ['controller' => 'Breeds', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Blog Posts'), ['controller' => 'BlogPosts', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Blog Post'), ['controller' => 'BlogPosts', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Blogs'), ['controller' => 'Blogs', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Blog'), ['controller' => 'Blogs', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Exhibitions'), ['controller' => 'Exhibitions', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Exhibition'), ['controller' => 'Exhibitions', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Photos'), ['controller' => 'Photos', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Photo'), ['controller' => 'Photos', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
+    </ul>
+</nav>
+<div class="cats view large-9 medium-8 columns content">
+    <h3><?= h($cat->name) ?></h3>
+    <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('Name') ?></th>
+            <td><?= h($cat->name) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Breeder') ?></th>
+            <td><?= h($cat->breeder) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Alias') ?></th>
+            <td><?= h($cat->alias) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Number') ?></th>
+            <td><?= h($cat->number) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Color') ?></th>
+            <td><?= h($cat->color) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Gender') ?></th>
+            <td><?= h($cat->gender) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Bloodtype') ?></th>
+            <td><?= h($cat->bloodtype) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Motherbreeder') ?></th>
+            <td><?= h($cat->motherbreeder) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Mothername') ?></th>
+            <td><?= h($cat->mothername) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Mothernumber') ?></th>
+            <td><?= h($cat->mothernumber) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Fatherbreeder') ?></th>
+            <td><?= h($cat->fatherbreeder) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Fathername') ?></th>
+            <td><?= h($cat->fathername) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Fathernumber') ?></th>
+            <td><?= h($cat->fathernumber) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Ems') ?></th>
+            <td><?= h($cat->ems) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Breed') ?></th>
+            <td><?= $cat->has('breed') ? $this->Html->link($cat->breed->name, ['controller' => 'Breeds', 'action' => 'view', $cat->breed->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Id') ?></th>
+            <td><?= $this->Number->format($cat->id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Castrated') ?></th>
+            <td><?= $this->Number->format($cat->castrated) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('User Id') ?></th>
+            <td><?= $this->Number->format($cat->user_id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Birthdate') ?></th>
+            <td><?= h($cat->birthdate) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Deathdate') ?></th>
+            <td><?= h($cat->deathdate) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Date') ?></th>
+            <td><?= h($cat->date) ?></td>
+        </tr>
+    </table>
+    <div class="row">
+        <h4><?= __('Text') ?></h4>
+        <?= $this->Text->autoParagraph(h($cat->text)); ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Blog Posts') ?></h4>
+        <?php if (!empty($cat->blog_posts)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Title') ?></th>
+                <th scope="col"><?= __('Slug') ?></th>
+                <th scope="col"><?= __('Summary') ?></th>
+                <th scope="col"><?= __('Body') ?></th>
+                <th scope="col"><?= __('Published') ?></th>
+                <th scope="col"><?= __('Sticky') ?></th>
+                <th scope="col"><?= __('In Rss') ?></th>
+                <th scope="col"><?= __('Meta Title') ?></th>
+                <th scope="col"><?= __('Meta Description') ?></th>
+                <th scope="col"><?= __('Meta Keywords') ?></th>
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <th scope="col"><?= __('User Id') ?></th>
+                <th scope="col"><?= __('Cat Id') ?></th>
+                <th scope="col"><?= __('Category Temp') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($cat->blog_posts as $blogPosts): ?>
+            <tr>
+                <td><?= h($blogPosts->id) ?></td>
+                <td><?= h($blogPosts->title) ?></td>
+                <td><?= h($blogPosts->slug) ?></td>
+                <td><?= h($blogPosts->summary) ?></td>
+                <td><?= h($blogPosts->body) ?></td>
+                <td><?= h($blogPosts->published) ?></td>
+                <td><?= h($blogPosts->sticky) ?></td>
+                <td><?= h($blogPosts->in_rss) ?></td>
+                <td><?= h($blogPosts->meta_title) ?></td>
+                <td><?= h($blogPosts->meta_description) ?></td>
+                <td><?= h($blogPosts->meta_keywords) ?></td>
+                <td><?= h($blogPosts->created) ?></td>
+                <td><?= h($blogPosts->modified) ?></td>
+                <td><?= h($blogPosts->user_id) ?></td>
+                <td><?= h($blogPosts->cat_id) ?></td>
+                <td><?= h($blogPosts->category_temp) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'BlogPosts', 'action' => 'view', $blogPosts->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'BlogPosts', 'action' => 'edit', $blogPosts->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'BlogPosts', 'action' => 'delete', $blogPosts->id], ['confirm' => __('Are you sure you want to delete # {0}?', $blogPosts->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Blogs') ?></h4>
+        <?php if (!empty($cat->blogs)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('User Id') ?></th>
+                <th scope="col"><?= __('Cat Id') ?></th>
+                <th scope="col"><?= __('Date') ?></th>
+                <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('Text') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($cat->blogs as $blogs): ?>
+            <tr>
+                <td><?= h($blogs->id) ?></td>
+                <td><?= h($blogs->user_id) ?></td>
+                <td><?= h($blogs->cat_id) ?></td>
+                <td><?= h($blogs->date) ?></td>
+                <td><?= h($blogs->name) ?></td>
+                <td><?= h($blogs->text) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Blogs', 'action' => 'view', $blogs->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Blogs', 'action' => 'edit', $blogs->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Blogs', 'action' => 'delete', $blogs->id], ['confirm' => __('Are you sure you want to delete # {0}?', $blogs->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Exhibitions') ?></h4>
+        <?php if (!empty($cat->exhibitions)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Cat Id') ?></th>
+                <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('Date') ?></th>
+                <th scope="col"><?= __('Place') ?></th>
+                <th scope="col"><?= __('Ems') ?></th>
+                <th scope="col"><?= __('Class') ?></th>
+                <th scope="col"><?= __('Result') ?></th>
+                <th scope="col"><?= __('Judge') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($cat->exhibitions as $exhibitions): ?>
+            <tr>
+                <td><?= h($exhibitions->id) ?></td>
+                <td><?= h($exhibitions->cat_id) ?></td>
+                <td><?= h($exhibitions->name) ?></td>
+                <td><?= h($exhibitions->date) ?></td>
+                <td><?= h($exhibitions->place) ?></td>
+                <td><?= h($exhibitions->ems) ?></td>
+                <td><?= h($exhibitions->class) ?></td>
+                <td><?= h($exhibitions->result) ?></td>
+                <td><?= h($exhibitions->judge) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Exhibitions', 'action' => 'view', $exhibitions->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Exhibitions', 'action' => 'edit', $exhibitions->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Exhibitions', 'action' => 'delete', $exhibitions->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibitions->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Photos') ?></h4>
+        <?php if (!empty($cat->photos)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Title') ?></th>
+                <th scope="col"><?= __('Body') ?></th>
+                <th scope="col"><?= __('Filename') ?></th>
+                <th scope="col"><?= __('Exif') ?></th>
+                <th scope="col"><?= __('Slug') ?></th>
+                <th scope="col"><?= __('Lat') ?></th>
+                <th scope="col"><?= __('Lng') ?></th>
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <th scope="col"><?= __('User Id') ?></th>
+                <th scope="col"><?= __('Cat Id') ?></th>
+                <th scope="col"><?= __('Dir') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($cat->photos as $photos): ?>
+            <tr>
+                <td><?= h($photos->id) ?></td>
+                <td><?= h($photos->title) ?></td>
+                <td><?= h($photos->body) ?></td>
+                <td><?= h($photos->filename) ?></td>
+                <td><?= h($photos->exif) ?></td>
+                <td><?= h($photos->slug) ?></td>
+                <td><?= h($photos->lat) ?></td>
+                <td><?= h($photos->lng) ?></td>
+                <td><?= h($photos->created) ?></td>
+                <td><?= h($photos->modified) ?></td>
+                <td><?= h($photos->user_id) ?></td>
+                <td><?= h($photos->cat_id) ?></td>
+                <td><?= h($photos->dir) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Photos', 'action' => 'view', $photos->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Photos', 'action' => 'edit', $photos->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Photos', 'action' => 'delete', $photos->id], ['confirm' => __('Are you sure you want to delete # {0}?', $photos->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Users') ?></h4>
+        <?php if (!empty($cat->users)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Username') ?></th>
+                <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('Email') ?></th>
+                <th scope="col"><?= __('Password') ?></th>
+                <th scope="col"><?= __('Role') ?></th>
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <th scope="col"><?= __('Last Visit') ?></th>
+                <th scope="col"><?= __('City') ?></th>
+                <th scope="col"><?= __('Url') ?></th>
+                <th scope="col"><?= __('Text') ?></th>
+                <th scope="col"><?= __('Active') ?></th>
+                <th scope="col"><?= __('Occupation') ?></th>
+                <th scope="col"><?= __('Hide Email') ?></th>
+                <th scope="col"><?= __('Passwordrq') ?></th>
+                <th scope="col"><?= __('Usergroup Id') ?></th>
+                <th scope="col"><?= __('Breeder Id') ?></th>
+                <th scope="col"><?= __('Status') ?></th>
+                <th scope="col"><?= __('Signature') ?></th>
+                <th scope="col"><?= __('Locale') ?></th>
+                <th scope="col"><?= __('Timezone') ?></th>
+                <th scope="col"><?= __('TotalPosts') ?></th>
+                <th scope="col"><?= __('TotalTopics') ?></th>
+                <th scope="col"><?= __('CurrentLogin') ?></th>
+                <th scope="col"><?= __('LastLogin') ?></th>
+                <th scope="col"><?= __('Email Verified') ?></th>
+                <th scope="col"><?= __('Email Token') ?></th>
+                <th scope="col"><?= __('Email Token Expires') ?></th>
+                <th scope="col"><?= __('Password Token') ?></th>
+                <th scope="col"><?= __('Last Login') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($cat->users as $users): ?>
+            <tr>
+                <td><?= h($users->id) ?></td>
+                <td><?= h($users->username) ?></td>
+                <td><?= h($users->name) ?></td>
+                <td><?= h($users->email) ?></td>
+                <td><?= h($users->password) ?></td>
+                <td><?= h($users->role) ?></td>
+                <td><?= h($users->created) ?></td>
+                <td><?= h($users->modified) ?></td>
+                <td><?= h($users->last_visit) ?></td>
+                <td><?= h($users->city) ?></td>
+                <td><?= h($users->url) ?></td>
+                <td><?= h($users->text) ?></td>
+                <td><?= h($users->active) ?></td>
+                <td><?= h($users->occupation) ?></td>
+                <td><?= h($users->hide_email) ?></td>
+                <td><?= h($users->passwordrq) ?></td>
+                <td><?= h($users->usergroup_id) ?></td>
+                <td><?= h($users->breeder_id) ?></td>
+                <td><?= h($users->status) ?></td>
+                <td><?= h($users->signature) ?></td>
+                <td><?= h($users->locale) ?></td>
+                <td><?= h($users->timezone) ?></td>
+                <td><?= h($users->totalPosts) ?></td>
+                <td><?= h($users->totalTopics) ?></td>
+                <td><?= h($users->currentLogin) ?></td>
+                <td><?= h($users->lastLogin) ?></td>
+                <td><?= h($users->email_verified) ?></td>
+                <td><?= h($users->email_token) ?></td>
+                <td><?= h($users->email_token_expires) ?></td>
+                <td><?= h($users->password_token) ?></td>
+                <td><?= h($users->last_login) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Users', 'action' => 'delete', $users->id], ['confirm' => __('Are you sure you want to delete # {0}?', $users->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+</div>
