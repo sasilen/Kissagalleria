@@ -20,6 +20,11 @@ class MediasController extends AppController
      */
     public function index()
     {
+			$this->paginate = [
+						'limit'=> 54,
+            'order' => ['id' => 'DESC']
+        ];
+
         $medias = $this->paginate($this->Medias);
 
         $this->set(compact('medias'));

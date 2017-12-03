@@ -27,7 +27,7 @@ use Cake\ORM\Entity;
  * @property string $ems
  * @property string $text
  * @property string $breed_id
- * @property int $user_id
+ * @property string $user_id
  *
  * @property \Kissagalleria\Model\Entity\Breed $breed
  * @property \Kissagalleria\Model\Entity\User[] $users

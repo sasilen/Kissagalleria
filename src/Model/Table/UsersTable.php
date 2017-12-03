@@ -47,6 +47,8 @@ class UsersTable extends Table
           'size' => 0             // maximum autorized size for uploaded pictures (in kb). Default: 0 (no limitation)
         ]);
 
+				$this->addBehavior('Kareylo/Comments.Commentable',['modelClass'=>'Kissagalleria.Users']);
+
         $this->setTable('users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');

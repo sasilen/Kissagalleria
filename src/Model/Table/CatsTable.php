@@ -49,6 +49,8 @@ class CatsTable extends Table
           ]
         );
 
+        $this->addBehavior('Kareylo/Comments.Commentable',['modelClass'=>'Kissagalleria.Cats']);
+
         $this->setTable('cats');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');

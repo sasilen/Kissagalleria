@@ -12,7 +12,6 @@ use Kissagalleria\Controller\AppController;
  */
 class CatsController extends AppController
 {
-
     /**
      * Index method
      *
@@ -65,8 +64,13 @@ class CatsController extends AppController
     public function view($id = null)
     {
         $cat = $this->Cats->get($id, [
-            'contain' => ['Breeds', 'Users', 'Exhibitions', 'Media']
+            'contain' => ['Comments'=>['Users'],'Breeds', 'Users', 'Exhibitions', 'Media','Ratings'=> function($q) {
+						    $q->select(['Ratings.foreign_key','total' => $q->func()->avg('Ratings.value')])
+								->where(['Ratings.model'=>'Cats']);
+								return $q;
+						}]
         ]);
+				$this->set('isRated', $this->Cats->isRatedBy($id, $this->Auth->user('id')));
         $this->set('cat', $cat);
         $this->set('_serialize', ['cat']);
     }
@@ -80,7 +84,10 @@ class CatsController extends AppController
     {
         $cat = $this->Cats->newEntity();
         if ($this->request->is('post')) {
-            $cat = $this->Cats->patchEntity($cat, $this->request->getData());
+						$cattmp = $this->request->getData();
+						$cattmp['user_id'] = $this->request->session()->read('Auth.User.id'); 
+						$cattmp['users']['_ids'] = [$this->request->session()->read('Auth.User.id')];
+            $cat = $this->Cats->patchEntity($cat, $cattmp);
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
 
@@ -89,7 +96,9 @@ class CatsController extends AppController
             $this->Flash->error(__('The cat could not be saved. Please, try again.'));
         }
         $breeds = $this->Cats->Breeds->find('list', ['limit' => 200]);
-        $users = $this->Cats->Users->find('list', ['limit' => 200]);
+  		  $users = $this->Cats->Users->find('list', ['limit' => 200,'keyField'=>'id','valueField'=>'username']);
+        $this->set(compact('post', 'users'));
+
         $this->set(compact('cat', 'breeds', 'users'));
         $this->set('_serialize', ['cat']);
     }

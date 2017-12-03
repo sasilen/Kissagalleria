@@ -14,9 +14,12 @@ $rowCount = 0;
 $bootstrapColWidth = 24 / $numOfCols;
 ?>
 <div class="container">
+	   <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><?= $this->Html->link(__('Cats'), ['plugin' => 'Kissagalleria', 'controller' => 'Cats', 'action' => 'index']); ?>
+    </ol>
+
 	<div class="row">
 	<div class="col-md-8">
-		<h3><?php echo __('Cats',true);?></h3>
 		<div class="row">
 
 			<?php foreach ($cats as $cat): ?>

@@ -9,11 +9,9 @@ class KissagalleriaHelper extends Helper
 {
     public $helpers = ['Html'];
 
-
-    public function resize($object,$nb=0) {            
-      $ref = explode('.',$object['media'][$nb]['ref'])[1];
-      if (isset($object['media'][$nb])) :                  
-        $media = $object['media'][$nb];                    
+    public function resize($media) {
+      $ref = explode('.',$media->ref)[1];
+      if (isset($media)) :                  
         if ((!file_exists('../../img/'.$ref.'/thumbs/'.basename($media->file)) ||
              !file_exists('../../img/'.$ref.'/swipebox/'.basename($media->file))) &&
               file_exists('../../img/'.$ref.'/'.basename($media->file))) :              
@@ -28,15 +26,22 @@ class KissagalleriaHelper extends Helper
     }
     
     public function display($object,$mode='thumbs',$nb=0)
-    { 
-      $this->resize($object,$nb);
+    {
+			if (isset($object['media'][$nb])) :
+				$media = $object['media'][$nb];
+			else : 
+				$media = $object;
+			endif;
+
+      $this->resize($media);
+
 			if ($mode=='raw') :
-				return $this->Html->link($this->display($object,'thumbs',$nb),
-																 array('plugin'=>'Media','controller' => 'medias','action' => 'display',$object['media'][$nb]->id,'swipebox'),
+				return $this->Html->link($this->display($media,'thumbs'),
+																 array('plugin'=>'Media','controller' => 'medias','action' => 'display',$media->id,'swipebox'),
 																 array('escape' => false));
 			endif;
          return $this->Html->image(
-            array('plugin'=>'Media','controller' => 'medias','action' => 'display',$object['media'][$nb]->id,$mode),
+            array('plugin'=>'Media','controller' => 'medias','action' => 'display',$media->id,$mode),
             array('class'=>'pull-left img-thumbnail','escape'=>false)
           );
 #          array('plugin'=>'Media','controller'=>'medias','action' => 'display',$media->id,$mode),

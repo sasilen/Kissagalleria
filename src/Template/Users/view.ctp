@@ -10,17 +10,29 @@ use Thumber\Utility\ThumbCreator;
   */
 ?>
 <div class="container">
-    <h1 class="mt-4 mb-3"> <?php h($user->name) ?></h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><?= $this->Html->link(__('Users'), ['plugin' => 'Kissagalleria', 'controller' => 'Users', 'action' => 'index']); ?> 
     <!--    <li class="breadcrumb-item"><?= $user->has('breed') ? $this->Html->link($user->breed->name, ['plugin' => 'Kissagalleria', 'controller' => 'Breeds', 'action' => 'view', $user->breed->id]) : '' ?></li> -->
         <li class="breadcrumb-item active"><?= h($user->username) ?></li>
+				<?php // $this->authLink->isAuthorized();?>
+				<?= $this->AuthLink->link('['.__('edit').']', ['plugin' => 'Kissagalleria', 'controller' => 'Users', 'action' => 'edit',$user->id],['class'=>'float-right']); ?>
+				<?= $this->AuthLink->link('['.__('Add cat').']', ['plugin' => 'Kissagalleria', 'controller' => 'Cats', 'action' => 'add'],['class'=>'float-right']); ?>
+
+<!--			glyphicon glyphicon-edit -->
     </ol>
   <!-- Portfolio Item Row -->
   <div class="row">
     <div class="col-md-8">
-			<?=$this->element('galleria',array('gallery' => $user));?>
-    </div>
+			<?=(!empty($user['media'])) ? $this->element('galleria',array('gallery' => $user)) : '';?>
+			<h3><?=__('Comments');?></h3>
+      <ul class="comment-list">
+            <?php foreach ($user->comments as $comment):
+                echo $this->Comment->comment($comment);
+            endforeach; ?>
+        </ul>
+        <!-- loadJS and display the comment Form if user is connected -->
+        <?= $this->Comment->loadFormAndJS($user); ?>
+		</div>
     <div class="col-md-4">
       <h3 class="my-3"><?= h(__('Cats'));?></h3>
 

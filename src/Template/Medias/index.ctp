@@ -14,12 +14,12 @@ $bootstrapColWidth = 24 / $numOfCols;
 	  <div class="col-md-8">
   	  <h3><?php echo __('Media',true);?></h3>
     	<div class="row">
-        <?php foreach ($medias as $media): ?>
+        <?php foreach ($medias as $media) :?>
 					<div class="col-lg-<?php echo $bootstrapColWidth/2; ?> col-sm-<?php echo $bootstrapColWidth; ?> mb-<?php echo $bootstrapColWidth; ?>">
           <!--  <img class="img-fluid" src="http://placehold.it/200x200" alt=""> -->
            <?=$this->Html->link($this->Kissagalleria->display($media),
-              array('plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'view',$cat->id),array('escape' => false));?>
-          <?php echo "<br/>".$this->Html->link(substr($media->name,0,10).'.', array('action'=>'view', $cat->id)); ?>
+              array('plugin'=>'Kissagalleria','controller'=> explode('.',$media->ref)[1],'action' => 'view',$media->ref_id),array('escape' => false));?>
+          <?php echo "<br/>".$this->Html->link(substr($media->name,0,10).'.', array('plugin'=>'Kissagalleria','controller'=> explode('.',$media->ref)[1],'action'=>'view', $media->ref_id)); ?>
         </div>
         <?php
           $rowCount++;

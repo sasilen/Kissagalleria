@@ -48,7 +48,26 @@
               <?=$this->Html->link(__('Toprated',true),array('plugin'=>'Kissagalleria','controller'=>'medias','action'=>'index','rated'),array('class'=>'dropdown-item'));?>
             </div>
           </li>
-        </ul>
+					<?php if (!$this->request->session()->read('Auth.User.id')) : ?>
+            <li class="nav-item"><?=$this->Html->link('Login', ['plugin'=>'CakeDC/Users','controller' => 'users', 'action' => 'login'],['class'=>'nav-link']);?></li>
+		      <?php else: ?>
+					<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=$this->request->session()->read('Auth.User.email');?></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown04">
+              <?=$this->Html->link(__('My Profile',true),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'view',$this->request->session()->read('Auth.User.id')),array('class'=>'dropdown-item'));?>
+              <?=$this->Html->link(__('Logout',true),array('plugin'=>'CakeDC/Users','controller'=>'users','action'=>'logout'),array('class'=>'dropdown-item'));?>
+            </div>
+          </li>
+					<?php endif;?>
+
+					 <li class="float:right">
+            <?=$this->Html->link($this->Html->image('Kissagalleria.fin_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','fi_FI'),array('escape' => false));?>
+            <?=$this->Html->link($this->Html->image('Kissagalleria.eng_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','en_EN'),array('escape' => false));?>
+            <?=$this->Html->link($this->Html->image('Kissagalleria.swe_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','sv_SV'),array('escape' => false));?>
+          </li>
+
+
+	      </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

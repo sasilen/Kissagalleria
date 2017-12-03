@@ -31,23 +31,56 @@ use Thumber\Utility\ThumbCreator;
     </ul>
 </nav> -->
 <div class="container">
-    <h1 class="mt-4 mb-3"><?= h($cat->breeder) ?> <?= h($cat->name) ?>
 <!--      <small>small</small> -->
-    </h1>
     <ol class="breadcrumb">
  			  <li class="breadcrumb-item"><?= $this->Html->link(__('Cats'), ['plugin' => 'Kissagalleria', 'controller' => 'Cats', 'action' => 'index']); ?>
         <li class="breadcrumb-item"><?= $cat->has('breed') ? $this->Html->link($cat->breed->name, ['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'index','breed' => $cat->breed->id]) : '' ?></li>
         <li class="breadcrumb-item"><?= $cat->has('breeder') ? $this->Html->link($cat->breeder, ['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'index','breeder' => $cat->breeder]) : '' ?></li>
-        <li class="breadcrumb-item active"><?= h($cat->name); ?> </li>
-				<li class="breadcrumb-item active"><?= h($cat->alias);?> </li>
+        <li class="breadcrumb-item active"><?= h($cat->name); ?> <small>(<?=__('Alias');?>: <class="breadcrumb-item active"><?= h($cat->alias);?> )</small></li>
+				<?= $this->AuthLink->link('['.__('edit').']', ['plugin' => 'Kissagalleria', 'controller' => 'Cats', 'action' => 'edit',$cat->id],['class'=>'float-right']); ?>
     </ol>
   <!-- Portfolio Item Row -->
   <div class="row">
     <div class="col-md-8">
-			<?=$this->element('galleria',array('gallery' => $cat));?>
+			<?php echo (!empty($cat['media'])) ? $this->element('galleria',array('gallery' => $cat)) : '';?>
+			<h3><?=__('Comments');?></h3>
+      <ul class="comment-list">
+            <?php foreach ($cat->comments as $comment):
+                echo $this->Comment->comment($comment);
+            endforeach; ?>
+        </ul>
+        <!-- loadJS and display the comment Form if user is connected -->
+      <?= $this->Comment->loadFormAndJS($cat); ?>
+
       <?=$this->element('exhibitions');?>
     </div>
     <div class="col-md-4">
+			  <?php echo $this->Html->script('/Kissagalleria/js/jquery.ui.stars/ui.stars.min.js',['block'=>'scriptTop']) ?>
+
+			<?php if ($isRated === false) { 
+				echo $this->Rating->display([
+	'item' => $cat->id,
+	'type' => 'radio',
+	'stars' => 5,
+	'value' => $cat['rating'],
+	'createForm' => [
+		'url' => [$cat->id,'rate'=>$cat->id,
+			'redirect' => false
+		]
+	]
+]);
+      } else {
+        echo __('Rating').' : '.$cat['ratings'][0]['total'];
+      }?>
+<script>
+	$('#ratingform').stars({
+	split: 2,
+	cancelShow: false,
+	callback: function(ui, type, value) {
+		ui.$form.submit();
+	}
+});
+</script>
       <h3 class="my-3">Description</h3>
       <p><?= $this->Text->autoParagraph(h($cat->text)); ?></p>
           <h3 class="my-3">Details</h3>
@@ -72,7 +105,7 @@ use Thumber\Utility\ThumbCreator;
             </tr><tr>
               <th><?= __('Castrated') ?></th><td> <?= $this->Number->format($cat->castrated) ?></td>
             </tr><tr>
-              <th><?= __('Birthdate') ?></th><td> <?= h($cat->birthdate->i18nFormat('dd.MM.yyyy')) ?>
+              <th><?= __('Birthdate') ?></th><td> <?= $cat->has('birthdate') ? h($cat->birthdate->i18nFormat('dd.MM.yyyy')) : ''; ?>
 								  <?=(strtotime($cat->birthdate) < strtotime($cat->deathdate)) ? ' - '.$cat->deathdate->i18nFormat('dd.MM.yyyy') : ''; ?>
 					  </tr><tr>
 							<th><?= __('Age') ?></th><td>	<?=$this->Kissagalleria->getAge($cat->birthdate,$cat->deathdate)?></td>

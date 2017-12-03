@@ -2,7 +2,7 @@
 namespace Kissagalleria\Controller;
 
 use Kissagalleria\Controller\AppController;
-
+use Cake\I18n\I18n;
 /**
  * Users Controller
  *
@@ -21,12 +21,21 @@ class UsersController extends AppController
     public function index()
     {
         $this->paginate = [
-          'contain' => ['Breeders','Media']
+          'contain' => ['Breeders','Media'],
+          'limit' => 54,
         ];
-        $users = $this->paginate($this->Users);
 
-        $this->set(compact('users'));
-        $this->set('_serialize', ['users']);
+				$breeders = $this->Users->Breeders->find()->all();
+
+				$breeder = $this->request->query('breeder');
+				if (isset($breeder)) :
+          $users = $this->paginate($this->Users->find()->matching('Breeders', function ($q) use ($breeder) {return $q->where(['Breeders.name' => $breeder]);}));
+				else :
+	        $users = $this->paginate($this->Users);
+				endif;
+
+        $this->set(compact('users','breeders'));
+        $this->set('_serialize', ['users','breeders']);
     }
 
     /**
@@ -40,9 +49,11 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id, [
           //            'contain' => ['Usergroups', 'Breeders', 'Cats', 'BlogPosts', 'Blogs', 'Comments', 'Commentsold', 'Photos', 'Posts', 'Vets']
-          'contain' => ['Breeders', 'Cats', 'Media']
+          'contain' => ['Breeders', 'Cats', 'Media','Comments'=>['Users']]
         ]);
 
+#		    $data = $this->Users->find()->where(['Users.id' => $id])->find('comments')->first();
+#        $this->set(compact('data'));
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
@@ -59,12 +70,11 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $usergroups = $this->Users->Usergroups->find('list', ['limit' => 200]);
+#        $usergroups = $this->Users->Usergroups->find('list', ['limit' => 200]);
         $breeders = $this->Users->Breeders->find('list', ['limit' => 200]);
         $cats = $this->Users->Cats->find('list', ['limit' => 200]);
         $this->set(compact('user', 'usergroups', 'breeders', 'cats'));
@@ -92,7 +102,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $usergroups = $this->Users->Usergroups->find('list', ['limit' => 200]);
+ #       $usergroups = $this->Users->Usergroups->find('list', ['limit' => 200]);
         $breeders = $this->Users->Breeders->find('list', ['limit' => 200]);
         $cats = $this->Users->Cats->find('list', ['limit' => 200]);
         $this->set(compact('user', 'usergroups', 'breeders', 'cats'));
@@ -118,4 +128,10 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+	 	public function language($lang) {
+			I18n::locale($lang);
+			return $this->redirect($this->referer());
+	  }
+
 }
