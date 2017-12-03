@@ -6,7 +6,7 @@
  
 
    <nav class="navbar navbar-expand-md navbar-custom bg-dark fixed-top navbar-toggleable-sm">
-      <a class="navbar-brand" href="#">Kissagalleria.com</a>
+			<?=$this->Html->link('Kissagalleria.com', ['plugin'=>false, 'controller' => 'Pages', 'action' => 'display'],['class'=>'navbar-brand']);?>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -60,11 +60,12 @@
           </li>
 					<?php endif;?>
 
-					 <li class="float:right">
-            <?=$this->Html->link($this->Html->image('Kissagalleria.fin_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','fi_FI'),array('escape' => false));?>
-            <?=$this->Html->link($this->Html->image('Kissagalleria.eng_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','en_EN'),array('escape' => false));?>
-            <?=$this->Html->link($this->Html->image('Kissagalleria.swe_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','sv_SV'),array('escape' => false));?>
+           <li class="float:right">
+            <?=$this->Html->link($this->Html->image('Kissagalleria.fi.svg',array('border'=>0,'height'=>'20px')),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','fi_FI'),array('escape' => false));?>
+            <?=$this->Html->link($this->Html->image('Kissagalleria.en.svg',array('border'=>0,'height'=>'20px')),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','en_EN'),array('escape' => false));?>
+            <?=$this->Html->link($this->Html->image('Kissagalleria.se.svg',array('border'=>0,'height'=>'20px')),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','sv_SV'),array('escape' => false));?>
           </li>
+
 
 
 	      </ul>
