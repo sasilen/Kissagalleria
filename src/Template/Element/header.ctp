@@ -17,9 +17,9 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <?=$this->Html->link($this->Html->image('/img/fin_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','fin'),array('escape' => false),array('class'=>'nav-link'));?>
-            <?=$this->Html->link($this->Html->image('/img/eng_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','eng'),array('escape' => false));?>
-            <?=$this->Html->link($this->Html->image('/img/swe_flag.gif',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','swe'),array('escape' => false));?>
+            <?=$this->Html->link($this->Html->image('/img/fi.svg',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','fin'),array('escape' => false),array('class'=>'nav-link'));?>
+            <?=$this->Html->link($this->Html->image('/img/en.svg',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','eng'),array('escape' => false));?>
+            <?=$this->Html->link($this->Html->image('/img/se.svg',array('border'=>0)),array('plugin'=>'Kissagalleria','controller'=>'users','action'=>'language','swe'),array('escape' => false));?>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Disabled</a>
