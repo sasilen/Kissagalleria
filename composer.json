@@ -5,10 +5,10 @@
     "license": "MIT",
     "require": {
         "cakephp/cakephp": "^3.5",
-				"cakedc/users": "^5.0",
+	"cakedc/users": "dev-master",
         "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^2.0",
-				"league/oauth1-client": "@stable",
+	"league/oauth1-client": "@stable",
         "romano83/cakephp3-media": "dev-master",
         "mirko-pagliai/cakephp-thumber": "^1.0",
         "kareylo/cakephp-comments": "^0.0.4",
