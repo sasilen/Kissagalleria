@@ -4,7 +4,15 @@
     "type": "cakephp-plugin",
     "license": "MIT",
     "require": {
-        "cakephp/cakephp": "^3.4"
+        "cakephp/cakephp": "^3.5"
+        "cakedc/users": "dev-master",
+        "league/oauth2-facebook": "@stable",
+        "league/oauth2-google": "@stable",
+        "romano83/cakephp3-media": "dev-master",
+        "mirko-pagliai/cakephp-thumber": "^1.0",
+        "kareylo/cakephp-comments": "^0.0.4",
+        "dereuromark/cakephp-ratings": "dev-master",
+        "league/oauth1-client": "@stable"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7|^6.0"
