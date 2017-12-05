@@ -8,10 +8,10 @@ The recommended way to install composer packages is:
 
 ```
 composer self-update && composer create-project --prefer-dist cakephp/app www
-composer config repositories.kissagalleria git https://github.com/sasilen/kissagalleria.git
-composer require sasilen/Kissagalleria
+cd www;composer config repositories.kissagalleria git https://github.com/sasilen/kissagalleria.git
+composer config minimum-stability dev
+composer require sasilen/Kissagalleria:dev-master
 ```
-
 ## Configure CakeDC/Users
 * permissions.php
 * users.php
@@ -20,7 +20,14 @@ composer require sasilen/Kissagalleria
 * paginator-templates.php
 
 ## Load Modules
-* bootstrap.php
+```
+cake plugin load -r -b CakeDC/Users
+cake plugin load -r Kissagalleria
+cake plugin load -r Media
+cake plugin load -r -b Thumber
+cake plugin load -r Kareylo/Comments
+cake plugin load Ratings
+```
 
 ## Enable theme from Ḱissagalleria
 ```
