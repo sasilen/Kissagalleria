@@ -12,13 +12,6 @@ cd www;composer config repositories.kissagalleria git https://github.com/sasilen
 composer config minimum-stability dev
 composer require sasilen/Kissagalleria:dev-master
 ```
-## Configure CakeDC/Users
-* permissions.php
-* users.php
-
-## Global templates
-* paginator-templates.php
-
 ## Load Modules
 ```
 cake plugin load -r -b CakeDC/Users
@@ -28,6 +21,22 @@ cake plugin load -r -b Thumber
 cake plugin load -r Kareylo/Comments
 cake plugin load Ratings
 ```
+
+## Configure CakeDC/Users
+
+### Bootstrap /config/bootsrap.php
+```
+Configure::write('Users.config', ['users']);
+Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);
+Configure::write('Users.Social.login', true); //to enable social login
+Configure::write('Auth.authenticate.Form.fields.username', 'email');
+``` 
+### Authorization
+* permissions.php
+* users.php
+
+## Global templates
+* paginator-templates.php
 
 ## Enable theme from Ḱissagalleria
 ```
