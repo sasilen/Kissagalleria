@@ -13,6 +13,12 @@ use Cake\I18n\I18n;
 class UsersController extends AppController
 {
 
+		public function initialize()
+    {
+      parent::initialize();
+      $this->Auth->allow(['index','view']);
+    }
+
     /**
      * Index method
      *

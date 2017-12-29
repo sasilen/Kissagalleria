@@ -3,42 +3,29 @@
 
 use Cake\I18n\Date;
 use Thumber\Utility\ThumbCreator;
+use Cake\View\Helper\BreadcrumbsHelper;
 
 /**
   * @var \App\View\AppView $this
   * @var \Cake\Datasource\EntityInterface $cat
   */
 ?>
-<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Cat'), ['action' => 'edit', $cat->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Cat'), ['action' => 'delete', $cat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $cat->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Cats'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Cat'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Breeds'), ['controller' => 'Breeds', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Breed'), ['controller' => 'Breeds', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Blog Posts'), ['controller' => 'BlogPosts', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Blog Post'), ['controller' => 'BlogPosts', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Blogs'), ['controller' => 'Blogs', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Blog'), ['controller' => 'Blogs', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Exhibitions'), ['controller' => 'Exhibitions', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Exhibition'), ['controller' => 'Exhibitions', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Photos'), ['controller' => 'Photos', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Photo'), ['controller' => 'Photos', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-    </ul>
-</nav> -->
 <div class="container">
-<!--      <small>small</small> -->
-    <ol class="breadcrumb">
- 			  <li class="breadcrumb-item"><?= $this->Html->link(__('Cats'), ['plugin' => 'Kissagalleria', 'controller' => 'Cats', 'action' => 'index']); ?>
-        <li class="breadcrumb-item"><?= $cat->has('breed') ? $this->Html->link($cat->breed->name, ['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'index','breed' => $cat->breed->id]) : '' ?></li>
-        <li class="breadcrumb-item"><?= $cat->has('breeder') ? $this->Html->link($cat->breeder, ['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'index','breeder' => $cat->breeder]) : '' ?></li>
-        <li class="breadcrumb-item active"><?= h($cat->name); ?> <small>(<?=__('Alias');?>: <class="breadcrumb-item active"><?= h($cat->alias);?> )</small></li>
-				<?= $this->AuthLink->link('['.__('edit').']', ['plugin' => 'Kissagalleria', 'controller' => 'Cats', 'action' => 'edit',$cat->id],['class'=>'float-right']); ?>
-    </ol>
+
+<?php
+	$this->Breadcrumbs->templates([
+    'wrapper' => '<ol class="breadcrumb">{{content}}</ol>',
+    'separator' => '<li{{attrs}}>{{separator}}</li>'
+	]);
+	$this->Breadcrumbs->add('Cats',['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index'],['class'=>'breadcrumb-item']);
+	$this->Breadcrumbs->add($cat->breed->name,['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index','breed' => $cat->breed->id ],['class'=>'breadcrumb-item']);
+	(!empty($cat['breeder'])) ? $this->Breadcrumbs->add($cat->breeder,['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index','breeder' => $cat->breeder ],['class'=>'breadcrumb-item']) : '';
+	$this->Breadcrumbs->add($cat->name,null,['class'=>'breadcrumb-item active']);
+	$this->Breadcrumbs->add($this->AuthLink->link($this->Html->image('Blog.ic_note_add_black_24px.svg'),['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'edit',$cat->id ],['escape'=>false,'class'=>'float-right']));
+	echo $this->Breadcrumbs->render(
+    ['separator' => '/']
+);
+?>
   <!-- Portfolio Item Row -->
   <div class="row">
     <div class="col-md-8">

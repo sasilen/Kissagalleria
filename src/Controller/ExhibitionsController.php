@@ -13,6 +13,12 @@ use Kissagalleria\Controller\AppController;
 class ExhibitionsController extends AppController
 {
 
+		public function initialize()
+    {
+      parent::initialize();
+      $this->Auth->allow(['index','view']);
+    }
+
     /**
      * Index method
      *
