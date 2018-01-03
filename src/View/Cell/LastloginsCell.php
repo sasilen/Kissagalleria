@@ -24,9 +24,11 @@ class LastloginsCell extends Cell
      */
     public function display()
     {
-			$this->User->bindModel(array('hasMany'=>array('Photo')));
-			$this->User->unbindModel(array('hasAndBelongsToMany'=>array('Cat')));
-			$this->User->recursive = 1;
-			return $this->User->find('all',array('order'=>array('User.last_login DESC'),'limit'=>'10'));
+		  $this->loadModel('Users');
+			$users = $this->Users->find()
+        ->order(['Users.modified DESC'])
+				->limit(10)
+        ->all();
+			$this->set(['Users'=>$users]);
     }
 }

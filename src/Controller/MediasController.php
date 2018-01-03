@@ -27,6 +27,7 @@ class MediasController extends AppController
     public function index()
     {
 			$this->paginate = [
+            'contain' => ['Ratings'],
 						'limit'=> 54,
             'order' => ['id' => 'DESC']
         ];

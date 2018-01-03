@@ -16,7 +16,7 @@ $bootstrapColWidth = 24 / $numOfCols;
     <ol class="breadcrumb">
         <li class="breadcrumb-item active"><?= $this->Html->link(__('Users'), ['plugin' => 'Kissagalleria', 'controller' => 'Users', 'action' => 'index']); ?></li>
         <?php // $this->authLink->isAuthorized();?>
-        <?= $this->AuthLink->link('['.__('My profile').']', ['plugin' => 'Kissagalleria', 'controller' => 'Users', 'action' => 'view',$this->request->session()->read('Auth.User.id')],['class'=>'float-right']); ?>
+        <?php // $this->AuthLink->link('['.__('My profile').']', ['plugin' => 'Kissagalleria', 'controller' => 'Users', 'action' => 'view',$this->request->session()->read('Auth.User.id')],['class'=>'float-right']); ?>
 
 <!--      glyphicon glyphicon-edit -->
     </ol>
@@ -47,7 +47,7 @@ $bootstrapColWidth = 24 / $numOfCols;
 
 	  </div>
 
-    <div class="paginator">
+    <div class="paginator text-center">
         <ul class="pagination justify-content-center">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>

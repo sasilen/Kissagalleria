@@ -2,6 +2,7 @@
 
 use Cake\I18n\Date;
 use Thumber\Utility\ThumbCreator;
+use Cake\View\Helper\BreadcrumbsHelper;
 
 /**
   * @var \App\View\AppView $this
@@ -14,9 +15,19 @@ $rowCount = 0;
 $bootstrapColWidth = 24 / $numOfCols;
 ?>
 <div class="container">
-	   <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><?= $this->Html->link(__('Cats'), ['plugin' => 'Kissagalleria', 'controller' => 'Cats', 'action' => 'index']); ?>
-    </ol>
+
+	<?php
+  $this->Breadcrumbs->templates([
+    'wrapper' => '<ol class="breadcrumb">{{content}}</ol>',
+    'separator' => '<li{{attrs}}>{{separator}}</li>'
+  ]);
+  $this->Breadcrumbs->add('Cats',['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index'],['class'=>'breadcrumb-item']);
+	(!empty($dod)) ? $this->Breadcrumbs->add('In memoriam',['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index','?'=>[ 'dod'=>1 ] ],['class'=>'breadcrumb-item']) : '';
+  (!empty($breed)) ? $this->Breadcrumbs->add($breed,null,['class'=>'breadcrumb-item active']) : '';
+  echo $this->Breadcrumbs->render(
+    ['separator' => '/']
+);
+?>
 
 	<div class="row">
 	<div class="col-md-8">
@@ -41,7 +52,7 @@ $bootstrapColWidth = 24 / $numOfCols;
 
 		</div>
 
-  	<div class="paginator">
+  	<div class="paginator text-center">
 			<ul class="pagination justify-content-center">
 		    <?= $this->Paginator->first('<< ' . __('first')) ?>
 		    <?= $this->Paginator->prev('< ' . __('previous')) ?>
@@ -58,6 +69,7 @@ $bootstrapColWidth = 24 / $numOfCols;
 	    <table width=100%>
 		    <?php $i = $x = 0;
 		    foreach ($breeds as $breed):
+					$query['breed'] = $breed->id;
 		      $class = null;
 		      if ($i++ % 2 == 0) {
 	  	      $class = ' class="altrow"';
@@ -65,13 +77,12 @@ $bootstrapColWidth = 24 / $numOfCols;
 		      <?php if ($x==0) echo "</tr><tr".$class.">";?>
 		      <td>
 		        <?=$this->Html->link('['.$breed['id'].'] '.$breed['name']. ' ('.(isset($breed['cats'][0]) ? $breed['cats'][0]['total'] : '') .')',
-							array('plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'index','breed' => $breed->id)); ?>
+							array('plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'index','?'=>$query )); ?>
 		      </td>
 		      <?php if ($x>=0) $x=0; else $x++;?>
 		    <?php endforeach;?>
 	    </table>
 	  <?php endif?>
-
  	</div>
 	</div>
 </div>

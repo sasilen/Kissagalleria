@@ -41,8 +41,8 @@ class ExhibitionsController extends AppController
 
 				$judges = $this->Exhibitions->find()->select(['judge'])->distinct(['judge'])->all();
 
-        $this->set(compact('exhibitions','judges'));
-        $this->set('_serialize', ['exhibitions','judges']);
+        $this->set(compact('exhibitions','judges','judge'));
+        $this->set('_serialize', ['exhibitions','judges','judge']);
     }
 
     /**

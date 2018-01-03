@@ -30,11 +30,10 @@ class KissagalleriaHelper extends Helper
 			if (isset($object['media'][$nb])) :
 				$media = $object['media'][$nb];
 			else : 
-				$media = $object;
+				$media = (object) $object;
 			endif;
 
       $this->resize($media);
-
 			if ($mode=='raw') :
 				return $this->Html->link($this->display($media,'thumbs'),
 																 array('plugin'=>'Media','controller' => 'medias','action' => 'display',$media->id,'swipebox'),

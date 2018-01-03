@@ -37,7 +37,7 @@ class UsersController extends AppController
 				if (isset($breeder)) :
           $users = $this->paginate($this->Users->find()->matching('Breeders', function ($q) use ($breeder) {return $q->where(['Breeders.name' => $breeder]);}));
 				else :
-	        $users = $this->paginate($this->Users);
+	        $users = $this->paginate($this->Users->find()->order('rand()'));
 				endif;
 
         $this->set(compact('users','breeders'));

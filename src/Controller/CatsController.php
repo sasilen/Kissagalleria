@@ -26,6 +26,16 @@ class CatsController extends AppController
      */
     public function index()
     {
+
+        $breed = $this->request->query('breed');
+        $breeder = $this->request->query('breeder');
+        $dod = $this->request->query('dod');
+				$query = $this->request->getQueryParams();
+	      unset($query['direction']);
+        unset($query['sort']);
+        unset($query['page']);
+
+
         $this->paginate = [
             'contain' => ['Breeds','Media'],
 						'limit' => 54, 
@@ -33,32 +43,48 @@ class CatsController extends AppController
 				
 				/**
 				 * Count Cats for each Breed
-				 */	
-				$breeds = $this->Cats->Breeds->find()->contain(['Cats'=> function($q) {
-			    $q->select([
-	         'Cats.breed_id',
-           'total' => $q->func()->count('Cats.breed_id')
-		      ])
-					->group(['Cats.breed_id']);
-			    return $q;
-				}])->all();
-			
+				 */
+				if (isset($dod)) : 
+					$breeds = $this->Cats->Breeds->find()->contain(['Cats'=> function($q) {
+				    $q->select([
+		         'Cats.breed_id',
+	           'total' => $q->func()->count('Cats.breed_id')
+			      ])
+						->where(['deathdate > birthdate'])
+						->group(['Cats.breed_id']);
+				    return $q;
+					}])->all();
+				else : 
+					$breeds = $this->Cats->Breeds->find()->contain(['Cats'=> function($q) {
+	          $q->select([
+	           'Cats.breed_id',
+  	         'total' => $q->func()->count('Cats.breed_id')
+    	      ])
+	          ->group(['Cats.breed_id']);
+	          return $q;
+  	      }])->all();
+				endif;
+
 				$breed = $this->request->query('breed');
 				$breeder = $this->request->query('breeder');
 				$dod = $this->request->query('dod');
+				
+				$where = array();
+				$order = 'rand()';
 
 				if (isset($breed)) :
-					$cats = $this->paginate($this->Cats->find()->where(['breed_id'=>$breed]));
-				elseif (isset($breeder)) :
-					$cats = $this->paginate($this->Cats->find()->where(['breeder'=>$breeder]));
-				elseif (isset($dod)) : 
-					$cats = $this->paginate($this->Cats->find()->where(['deathdate > birthdate']));
-				else : 
-					$cats = $this->paginate($this->Cats);			
+					$where['breed_id'] = $breed;
 				endif;
+				if (isset($breeder)) :
+					$where['breeder'] = $breeder;
+				endif;
+				if (isset($dod)) : 
+					$where[] = 'deathdate > birthdate';
+				endif;
+				$cats = $this->paginate($this->Cats->find()->where($where)->order($order));
 
-        $this->set(compact('cats','breeds'));
-        $this->set('_serialize', ['cats','breeds']);
+        $this->set(compact('cats','breeds','breed','dod','query'));
+        $this->set('_serialize', ['cats','breeds','breed','dod','query']);
     }
 
     /**

@@ -3,11 +3,28 @@
   * @var \App\View\AppView $this
   * @var \Cake\Datasource\EntityInterface[]|\Cake\Collection\CollectionInterface $exhibitions
   */
+
+use Cake\I18n\Date;
+use Cake\View\Helper\BreadcrumbsHelper;
+
 ?>
 <div class="container">
+
+  <?php
+  $this->Breadcrumbs->templates([
+    'wrapper' => '<ol class="breadcrumb">{{content}}</ol>',
+    'separator' => '<li{{attrs}}>{{separator}}</li>'
+  ]);
+  $this->Breadcrumbs->add(__('Exhibitions'),['plugin'=>'Kissagalleria','controller' => 'Exhibitions', 'action' => 'index'],['class'=>'breadcrumb-item']);
+  (!empty($judge)) ? $this->Breadcrumbs->add($judge,null,['class'=>'breadcrumb-item']) : '';
+  (!empty($breed)) ? $this->Breadcrumbs->add($breed,null,['class'=>'breadcrumb-item active']) : '';
+  echo $this->Breadcrumbs->render(
+    ['separator' => '/']
+	);
+	?>
+
   <div class="row">
-	  <div class="col-md-8">
-  	  <h3><?php echo __('Exhibitions',true);?></h3>
+	  <div class="col-md-9">
     	<div class="row">
         <table class="table table-bordered">
         <tr>
@@ -41,7 +58,7 @@
         </table>
 			</div>
 
-	    <div class="paginator">
+	    <div class="paginator text-center">
         <ul class="pagination justify-content-center">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
@@ -53,7 +70,7 @@
   	  </div>
 		</div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <?php if (isset($judges)): ?>
       <h3><?php echo __('Judges',true);?></h3>
       <table width=100%>

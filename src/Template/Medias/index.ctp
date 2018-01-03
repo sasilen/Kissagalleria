@@ -5,13 +5,13 @@
   */
 
 //Columns must be a factor of 12 (1,2,3,4,6,12)
-$numOfCols = 6;
+$numOfCols = 9;
 $rowCount = 0;
-$bootstrapColWidth = 24 / $numOfCols;
+$bootstrapColWidth = 10 / $numOfCols;
 ?>
 <div class="container">
   <div class="row">
-	  <div class="col-md-8">
+	  <div class="col-md-12">
   	  <h3><?php echo __('Media',true);?></h3>
     	<div class="row">
         <?php foreach ($medias as $media) :?>
@@ -40,7 +40,8 @@ $bootstrapColWidth = 24 / $numOfCols;
                 </td>
             </tr> -->
        <?php endforeach; ?>
-    <div class="paginator">
+		</div>
+    <div class="paginator text-center">
         <ul class="pagination justify-content-center">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>

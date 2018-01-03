@@ -21,7 +21,8 @@ use Cake\View\Helper\BreadcrumbsHelper;
 	$this->Breadcrumbs->add($cat->breed->name,['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index','breed' => $cat->breed->id ],['class'=>'breadcrumb-item']);
 	(!empty($cat['breeder'])) ? $this->Breadcrumbs->add($cat->breeder,['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index','breeder' => $cat->breeder ],['class'=>'breadcrumb-item']) : '';
 	$this->Breadcrumbs->add($cat->name,null,['class'=>'breadcrumb-item active']);
-	$this->Breadcrumbs->add($this->AuthLink->link($this->Html->image('Blog.ic_note_add_black_24px.svg'),['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'edit',$cat->id ],['escape'=>false,'class'=>'float-right']));
+	$this->Breadcrumbs->add($this->AuthLink->link($this->Html->image('Kissagalleria.ic_mode_edit_black_24px.svg'),['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'edit',$cat->id ],['escape'=>false,'class'=>'badge badge-info ml-1 float-right']));
+
 	echo $this->Breadcrumbs->render(
     ['separator' => '/']
 );
@@ -68,7 +69,7 @@ use Cake\View\Helper\BreadcrumbsHelper;
 	}
 });
 </script>
-      <h3 class="my-3">Description</h3>
+      <?php if (!empty($cat->text)) : ?><h3 class="my-3">Description</h3> <?php endif;?>
       <p><?= $this->Text->autoParagraph(h($cat->text)); ?></p>
           <h3 class="my-3">Details</h3>
 					<table width="100%"><tr>

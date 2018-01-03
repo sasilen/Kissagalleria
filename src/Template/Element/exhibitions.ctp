@@ -1,5 +1,5 @@
-        <h4><?= __('Related Exhibitions') ?></h4>
         <?php if (!empty($cat->exhibitions)): ?>
+				<h4><?= __('Exhibitions') ?></h4>
         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <th scope="col"><?= __('Name') ?></th>
