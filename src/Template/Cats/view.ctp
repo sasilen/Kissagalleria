@@ -22,6 +22,7 @@ use Cake\View\Helper\BreadcrumbsHelper;
 	(!empty($cat['breeder'])) ? $this->Breadcrumbs->add($cat->breeder,['plugin'=>'Kissagalleria','controller' => 'Cats', 'action' => 'index','breeder' => $cat->breeder ],['class'=>'breadcrumb-item']) : '';
 	$this->Breadcrumbs->add($cat->name,null,['class'=>'breadcrumb-item active']);
 	$this->Breadcrumbs->add($this->AuthLink->link($this->Html->image('Kissagalleria.ic_mode_edit_black_24px.svg'),['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'edit',$cat->id ],['escape'=>false,'class'=>'badge badge-info ml-1 float-right']));
+	$this->Breadcrumbs->add($this->AuthLink->link($this->Html->image('Kissagalleria.ic_delete_forever_black_24px.svg'),['plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'delete',$cat->id ],['escape'=>false,'class'=>'badge badge-info ml-1 float-right']));
 
 	echo $this->Breadcrumbs->render(
     ['separator' => '/']
