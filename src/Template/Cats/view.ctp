@@ -5,6 +5,25 @@ use Cake\I18n\Date;
 use Thumber\Utility\ThumbCreator;
 use Cake\View\Helper\BreadcrumbsHelper;
 
+echo $this->Html->script('/assets/bootstrap-star-rating/js/star-rating.js', ['block' => 'scriptTop']);
+echo $this->Html->css('/assets/bootstrap-star-rating/css/star-rating.css',['block' => 'cssTop']);
+echo $this->Html->scriptBlock("
+;(function($) {
+	$(function() {
+		$('#star_1').rating({
+			filledStar: '<i class='fa fa-star'></i>',
+			emptyStar: '<i class='fa fa-star-o'></i>',
+			showClear: false,
+			showCaption: false,
+			size:'xs',
+			step: 1
+		});
+		$('#star_1').on('rating:change', function(event, value, caption) {
+			$('#starelement_1').val(value);
+		}).hide();
+	});
+})(jQuery);",['block'=>true]);
+
 /**
   * @var \App\View\AppView $this
   * @var \Cake\Datasource\EntityInterface $cat
@@ -44,32 +63,23 @@ use Cake\View\Helper\BreadcrumbsHelper;
       <?=$this->element('exhibitions');?>
     </div>
     <div class="col-md-4">
-			  <?php echo $this->Html->script('/Kissagalleria/js/jquery.ui.stars/ui.stars.min.js',['block'=>'scriptTop']) ?>
-
-			<?php if ($isRated === false) { 
-				echo $this->Rating->display([
-	'item' => $cat->id,
-	'type' => 'radio',
+<!--		<?php
+			if (!$hasRated) {
+				echo $this->Rating->control([
+					'item' => $cat['id'],
+					'js' => true,
+				]);
+			} else { 
+				echo __('You have already rated.');
+echo $this->Rating->display($isRated->value,[
+	'item' => $cat['id'],
 	'stars' => 5,
-	'value' => $cat['rating'],
-	'createForm' => [
-		'url' => [$cat->id,'rate'=>$cat->id,
-			'redirect' => false
-		]
-	]
+	//'js' => true,
 ]);
-      } else {
-        echo __('Rating').' : '.$cat['ratings'][0]['total'];
-      }?>
-<script>
-	$('#ratingform').stars({
-	split: 2,
-	cancelShow: false,
-	callback: function(ui, type, value) {
-		ui.$form.submit();
-	}
-});
-</script>
+
+				echo $this->Rating->display($isRated['value']);
+			}
+			?> -->
       <?php if (!empty($cat->text)) : ?><h3 class="my-3">Description</h3> <?php endif;?>
       <p><?= $this->Text->autoParagraph(h($cat->text)); ?></p>
           <h3 class="my-3">Details</h3>

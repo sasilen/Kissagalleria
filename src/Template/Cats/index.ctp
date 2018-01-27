@@ -40,7 +40,9 @@ $bootstrapColWidth = 24 / $numOfCols;
 		    	<?php if (isset($cat['media'][0])) :
 		      	echo $this->Html->link($this->Kissagalleria->display($cat),
 		          array('plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'view',$cat->id),array('escape' => false));
-				  endif; ?>
+          else :
+            echo $this->Html->image('http://placehold.it/100x100');
+          endif; ?>
 		    	<?php echo "<br/>".$this->Html->link(substr($cat->name,0,10).'.', array('action'=>'view', $cat->id)); ?>
 			  </div>
 		    <?php

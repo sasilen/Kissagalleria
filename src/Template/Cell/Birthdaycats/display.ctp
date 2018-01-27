@@ -14,7 +14,7 @@
               array('plugin'=>'Kissagalleria','controller'=>'Cats','action' => 'view',$cat->id),array('escape' => false));
           endif; ?>
 					<br/><small>
-          <?=$this->Html->link('['.$cat['breed_id'].'] '.substr($cat->name,0,10).'.', array('action'=>'view', $cat->id)); ?>
+          <?=$this->Html->link('['.$cat['breed_id'].'] '.substr($cat->name,0,10).'.', array('plugin'=>'Kissagalleria','controller'=>'Cats','action'=>'view', $cat->id)); ?>
 					</small>
 
     </td>

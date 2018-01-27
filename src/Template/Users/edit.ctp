@@ -26,7 +26,8 @@
             echo $this->Form->control('password',['label' => ['class' => 'col-sm-4 control-label', 'text' => __('Password')]]);
             echo $this->Form->control('first_name',['label' => ['class' => 'col-sm-4 control-label', 'text' => __('First name')]]);
             echo $this->Form->control('last_name',['label' => ['class' => 'col-sm-4 control-label', 'text' => __('Last name')]]);
-            echo $this->Form->control('active', [
+
+/*            echo $this->Form->control('active', [
               'label' => ['text' => __('Active'),'class' => 'col-sm-4 control-label'],
               'type' => 'select',
               'multiple' => false,
@@ -41,9 +42,10 @@
               'default' => 'true',
               'options' => ['True'=>__('True',true),'False'=>__('False',false)],
               'empty' => false
-            ]);
-            echo $this->Form->control('cats._ids', ['label' => ['text' => __('Cats'),'class' => 'col-sm-4 control-label'],'type' => 'select','multiple' => true,'options' => $cats, 'default'=>'NON','empty' => false]);
-						echo $this->Form->control('breeders._ids', ['label' => ['text' => __('Breeders'),'class' => 'col-sm-4 control-label'],'type' => 'select','multiple' => false,'options' => $breeders, 'default'=>'NON','empty' => false]);
+            ]); 
+*/
+//          echo $this->Form->control('cats._ids', ['label' => ['text' => __('Cats'),'class' => 'col-sm-4 control-label'],'type' => 'select','multiple' => true,'options' => $cats, 'default'=>'NON','empty' => false]);
+//  				echo $this->Form->control('breeders._ids', ['label' => ['text' => __('Breeders'),'class' => 'col-sm-4 control-label'],'type' => 'select','multiple' => false,'options' => $breeders, 'default'=>'NON','empty' => false]);
 						echo $this->Media->iframe('Kissagalleria.Users',$user->id);
         ?>
     </fieldset>

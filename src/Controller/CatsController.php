@@ -12,6 +12,9 @@ use Kissagalleria\Controller\AppController;
  */
 class CatsController extends AppController
 {
+		public $components = [
+			'Ratings.Rating' => ['actions' => ['view']],
+		];
 
 		public function initialize()
     {
@@ -103,7 +106,8 @@ class CatsController extends AppController
 								return $q;
 						}]
         ]);
-				$this->set('isRated', $this->Cats->isRatedBy($id, $this->Auth->user('id')));
+				$this->set('isRated', $this->Cats->isRatedBy($id, $this->Auth->user('id'))->first());
+				$this->set('hasRated', $this->Cats->hasRated($id, $this->Auth->user('id')));
         $this->set('cat', $cat);
         $this->set('_serialize', ['cat']);
     }
@@ -172,7 +176,6 @@ class CatsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $cat = $this->Cats->get($id);
         if ($this->Cats->delete($cat)) {
             $this->Flash->success(__('The cat has been deleted.'));

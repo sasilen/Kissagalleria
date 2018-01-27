@@ -33,6 +33,9 @@ class KissagalleriaHelper extends Helper
 				$media = (object) $object;
 			endif;
 
+			$ref = explode('.',$media->ref)[1];
+			if (!file_exists('../../img/'.$ref.'/'.basename($media->file))) return false;
+
       $this->resize($media);
 			if ($mode=='raw') :
 				return $this->Html->link($this->display($media,'thumbs'),

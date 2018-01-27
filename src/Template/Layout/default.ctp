@@ -22,6 +22,8 @@ body {
 
         echo $this->fetch('meta');
         echo $this->fetch('css');
+				echo $this->fetch('cssTop');
+
         echo $this->fetch('script');
 
         echo $this->Html->script('https://code.jquery.com/jquery-3.2.1.min.js');

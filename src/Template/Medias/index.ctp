@@ -16,11 +16,14 @@ $bootstrapColWidth = 10 / $numOfCols;
     	<div class="row">
         <?php foreach ($medias as $media) :?>
 					<div class="col-lg-<?php echo $bootstrapColWidth/2; ?> col-sm-<?php echo $bootstrapColWidth; ?> mb-<?php echo $bootstrapColWidth; ?>">
-          <!--  <img class="img-fluid" src="http://placehold.it/200x200" alt=""> -->
-           <?=$this->Html->link($this->Kissagalleria->display($media),
-              array('plugin'=>'Kissagalleria','controller'=> explode('.',$media->ref)[1],'action' => 'view',$media->ref_id),array('escape' => false));?>
-          <?php echo "<br/>".$this->Html->link(substr($media->name,0,10).'.', array('plugin'=>'Kissagalleria','controller'=> explode('.',$media->ref)[1],'action'=>'view', $media->ref_id)); ?>
-        </div>
+	          <!--  <img class="img-fluid" src="http://placehold.it/200x200" alt=""> -->
+  	        <?php if ($this->Kissagalleria->display($media)) :
+							echo $this->Html->link($this->Kissagalleria->display($media),array('plugin'=>'Kissagalleria','controller'=> explode('.',$media->ref)[1],'action' => 'view',$media->ref_id),array('escape' => false));
+      	      echo "<br/>".$this->Html->link(substr($media->name,0,10).'.', array('plugin'=>'Kissagalleria','controller'=> explode('.',$media->ref)[1],'action'=>'view', $media->ref_id));
+	          else :
+	            echo $this->Html->image('http://placehold.it/100x100',['class'=>'img-thumbnail']);
+	          endif; ?>
+  	      </div>
         <?php
           $rowCount++;
           if($rowCount % $numOfCols == 0) echo '</div><div class="row">';

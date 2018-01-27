@@ -13,6 +13,8 @@ use Kissagalleria\Controller\AppController;
 class MediasController extends AppController
 {
 
+		public $components = ['Ratings.Rating' => ['actions'=>['view']]];
+
 		public function initialize()
     {
       parent::initialize();
@@ -27,7 +29,7 @@ class MediasController extends AppController
     public function index()
     {
 			$this->paginate = [
-            'contain' => ['Ratings'],
+#            'contain' => ['Ratings.Rating'],
 						'limit'=> 54,
             'order' => ['id' => 'DESC']
         ];
