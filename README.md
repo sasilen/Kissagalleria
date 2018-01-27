@@ -1,3 +1,5 @@
+[![SSL Rating](https://sslbadge.org/?domain=www.kissagalleria.com)](https://www.ssllabs.com/ssltest/analyze.html?d=www.kissagalleria.com)
+
 # Kissagalleria plugin for CakePHP 3
 
 ## Installation
@@ -38,7 +40,7 @@ Configure::write('Auth.authenticate.Form.fields.username', 'email');
 ## Global templates
 * paginator-templates.php
 
-## Enable theme from Ḱissagalleria
+## Enable theme from Kissagalleria
 ```
 # /src/Controller/AppController.php
 
